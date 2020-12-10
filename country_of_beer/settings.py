@@ -25,7 +25,7 @@ SECRET_KEY = 'jq-)5l-dp4t-semlm8+54yb6$8d#2n-xl*hus_$!csy3vf%5#7'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [ '127.0.0.1' ]
 
 
 # Application definition
@@ -76,8 +76,12 @@ WSGI_APPLICATION = 'country_of_beer.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'beer_db',
+        'USER': 'postgres',
+        'PASSWORD': 'f930f1b1',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 

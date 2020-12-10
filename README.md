@@ -1,2 +1,2 @@
-# country_of_beer
+# Country of beer
 First marketplace project

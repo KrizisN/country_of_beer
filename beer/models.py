@@ -63,7 +63,7 @@ class Beer(models.Model):
     """"Beer"""
     name = models.CharField("Name of beer", max_length=160)
     sort_of_beer = models.ForeignKey(Sort_of_beer, verbose_name="Sort of beer", on_delete=models.SET_NULL, null=True)
-    manufacturer = models.ForeignKey(Manufacture, verbose_name="Manufacture", related_name="main_manufacturer")
+    manufacturer = models.ForeignKey(Manufacture, verbose_name="Manufacture",on_delete=models.CASCADE, related_name="main_manufacturer")
     price = models.FloatField("Price", help_text="Indicate the amount in dollars")
     volume = models.FloatField("Volume")
     is_available = models.BooleanField("Availability")

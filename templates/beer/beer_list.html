@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+{% block content %}
+{% include 'page/header.html' %}
+    {% for beer in beer_list %}
+        {{ beer.name }}
+    {% endfor %}
+{% endblock content %}

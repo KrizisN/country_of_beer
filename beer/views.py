@@ -2,7 +2,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import CreateView
+from django.views.generic import CreateView, ListView
+from .models import *
 
 from .forms import AuthUserForm, CreateUserForm
 
@@ -22,6 +23,15 @@ class RegisterUserView(CreateView):
     template_name = 'account/register.html'
     form_class = CreateUserForm
     success_url = reverse_lazy('#')
+
+
+class BeerListView(ListView):
+    """View for beer list display"""
+
+    model = Beer
+    queryset = Beer.objects.filter(is_available=True)
+    template_name = 'beer/beer_list.html'
+    context_object_name = 'beer_list'
 
 
 

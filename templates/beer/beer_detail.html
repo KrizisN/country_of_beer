@@ -1,4 +1,82 @@
 {% extends 'base.html' %}
 {% block content %}
-{{ context_beer_detail.name }}
+<div class="row">
+    <div class="card mt-3 mb-5" style="width: 18rem;">
+        <img class="card-img-top" src="{{ context_beer_detail.image.url }}" alt="Card image cap">
+
+    </div>
+    <div class="col-6 mt-3">
+        <table class="table">
+            <tbody>
+            <tr>
+                <td>Name:</td>
+                <td>{{ context_beer_detail.name }}</td>
+            </tr>
+            <tr>
+                <td>Sort of beer:</td>
+                <td>{{ context_beer_detail.sort_of_beer }}</td>
+            </tr>
+            <tr>
+                <td>Manufacturer:</td>
+                <td>{{ context_beer_detail.manufacturer }}</td>
+            </tr>
+            <tr>
+                <td>Volume:</td>
+                <td>{{ context_beer_detail.volume }}</td>
+            </tr>
+            <tr>
+                <td>Descriptions:</td>
+                <td>{{ context_beer_detail.descriptions }}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<form action="{% url 'review' context_beer_detail.id %}" method="post">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="exampleFormControlTextarea1">Review</label>
+        <textarea name="text" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+    </div>
+    <button type="submit">Submit</button>
+</form>
+<section class="container">
+    <div class="row">
+        {% for review in context_beer_detail.reviews_set.all %}
+        <div class="col-md-12">
+            <div class="panel">
+                <div class="panel-body">
+
+                </div>
+            </div>
+            <div class="panel">
+                <div class="panel-body">
+                    <!-- Содержание Новостей -->
+                    <!--===================================================-->
+                    <div class="media-block">
+                        <a class="media-left" href="#"><img class="img-circle img-sm" alt="Профиль пользователя"
+                                                            src="https://bootstraptema.ru/snippets/icons/2016/mia/1.png"></a>
+                        <div class="media-body">
+                            <div class="mar-btm">
+                                <a href="#" class="btn-link text-semibold media-heading box-inline">{{ review.user }}</a>
+                                <p class="text-muted text-sm"><i class="fa fa-mobile fa-lg"></i> - 19-06-2016</p>
+                            </div>
+                            <p>{{ review.text }}</p>
+                            <div class="pad-ver">
+                                <div class="btn-group">
+                                    <a class="btn btn-sm btn-default btn-hover-success" href="#"><i
+                                            class="fa fa-thumbs-up"></i></a>
+                                    <a class="btn btn-sm btn-default btn-hover-danger" href="#"><i
+                                            class="fa fa-thumbs-down"></i></a>
+                                </div>
+                                <a class="btn btn-sm btn-default btn-hover-primary" href="#">Ответить</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</section><!-- /.container -->
 {% endblock content %}

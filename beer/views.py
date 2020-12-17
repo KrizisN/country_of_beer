@@ -1,11 +1,13 @@
 from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView, DetailView
+from django.views.generic.base import View
+
 from .models import *
 
-from .forms import AuthUserForm, CreateUserForm
+from .forms import AuthUserForm, CreateUserForm, ReviewForm
 
 
 class LoginUserView(LoginView):
@@ -41,6 +43,21 @@ class BeerDetailView(DetailView):
     queryset = Beer.objects.all()
     template_name = 'beer/beer_detail.html'
     context_object_name = 'context_beer_detail'
+
+
+class AddReviews(View):
+    """View for do comments"""
+    def post(self, request, pk):
+        form = ReviewForm(request.POST)
+        beer = Beer.objects.get(id=pk)
+        if form.is_valid():
+            form = form.save(commit=False)
+            form.beer = beer
+            form.user = request.user
+            form.save()
+            return redirect('home')
+        else:
+            return redirect('home')
 
 
 
